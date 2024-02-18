@@ -1,0 +1,19 @@
+body {
+    background-color: #444;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+canvas {
+    border: 2px solid #fff;
+    background-color: #000;
+}
+
+#inputs {
+    display: grid;
+    grid-template-columns: repeat(4, 7.5% 17.5%);
+}
+
+#inputs input {
+    margin-right: 5%;
+}
