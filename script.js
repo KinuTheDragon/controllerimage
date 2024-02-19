@@ -36,22 +36,28 @@ Object.values(images).forEach(img => img.addEventListener("load", () => {
 }));
 
 function drawImageCentered(image, x, y, scale) {
-    scale = scale * controllerScale / 0.4;
     let width = image.width * scale;
     let height = image.height * scale;
-    ctx.drawImage(image,
-        (x - canvas.width / 2) * 0.4 / controllerScale + canvas.width / 2 - width / 2,
-        (y - canvas.height / 2) * 0.4 / controllerScale + canvas.height / 2 - height / 2, width, height);
+    ctx.drawImage(
+        image,
+        x - width / 2,
+        y - height / 2,
+        width,
+        height
+    );
 }
 
 function drawImageRelativeToController(image, xp, yp, scale) {
-    drawImageCentered(image,
+    drawImageCentered(
+        image,
         canvas.width / 2 + xp * controllerScale * images.base.width / 2,
-        canvas.height / 2 + yp * controllerScale * images.base.height / 2, scale);
+        canvas.height / 2 + yp * controllerScale * images.base.height / 2,
+        scale * controllerScale / 0.4
+    );
 }
 
 function drawDpadGradient(xp, yp, xoff, yoff) {
-    let size = images.base.width * 0.015;
+    let size = images.base.width * 0.015 * controllerScale / 0.4;
     let radius = size / 4;
     let cx = canvas.width / 2 + controllerScale * xp * images.base.width / 2;
     let cy = canvas.height / 2 + controllerScale * yp * images.base.height / 2;
