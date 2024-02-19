@@ -336,7 +336,7 @@ function loadFromCode(code) {
     document.getElementById("color").value = parts[0];
     document.getElementById("scale").value = +parts[1];
     for (let i = 0; i < INPUT_ORDER.length; i++) {
-        document.getElementById(INPUT_ORDER[i]).value = parts[i + 2];
+        document.getElementById(INPUT_ORDER[i]).value = parts[i + 2].replaceAll("\1", ",");
     }
     updateCode();
 }
