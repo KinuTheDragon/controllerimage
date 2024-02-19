@@ -3,6 +3,10 @@ const ctx = canvas.getContext("2d");
 
 let controllerScale = 0.4;
 
+const INPUT_ORDER =
+    ("a b x y dpad_up dpad_down dpad_left dpad_right lb rb lt rt " + 
+     "left_stick_vertical left_stick_horizontal right_stick_vertical right_stick_horizontal view menu share").split(" ");
+
 const imageNames = [
     "A",
     "arrows_horizontal",
@@ -127,8 +131,7 @@ function drawText(text, xp, yp, anchor, maxWidthFunc) {
 
 function main() {
     if (!allLoaded) return;
-    if (document.getElementById("scale"))
-        controllerScale = document.getElementById("scale").value / 100;
+    controllerScale = document.getElementById("scale").value / 100;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawImageCentered(images.base, canvas.width / 2, canvas.height / 2, controllerScale);
     let inputs = {};
@@ -308,3 +311,36 @@ function main() {
 }
 
 setInterval(main, 1);
+
+function updateCode() {
+    let code = `${document.getElementById("color").value},${document.getElementById("scale").value},` +
+        INPUT_ORDER.map(x => document.getElementById(x).value.replaceAll(",", "\1")).join(",").replaceAll(/,*$/g, "");
+    code = [...pako.deflate(code)].map(x => String.fromCodePoint(x)).join("");
+    document.getElementById("loadcode").innerText = btoa(code);
+}
+updateCode();
+
+document.querySelectorAll("input").forEach(x => x.addEventListener("input", updateCode));
+
+function loadFromCode(code) {
+    if (!code) return;
+    let decoded;
+    try {
+        decoded = pako.inflate([...atob(code)].map(x => x.codePointAt(0)), {to: "string"});
+    } catch {
+        return;
+    }
+    let numCommas = [...decoded.matchAll(",")].length;
+    decoded += ",".repeat(INPUT_ORDER.length + 1 - numCommas);
+    let parts = decoded.split(",");
+    document.getElementById("color").value = parts[0];
+    document.getElementById("scale").value = +parts[1];
+    for (let i = 0; i < INPUT_ORDER.length; i++) {
+        document.getElementById(INPUT_ORDER[i]).value = parts[i + 2];
+    }
+    updateCode();
+}
+
+function copy(text) {
+    navigator.clipboard.writeText(text);
+}
