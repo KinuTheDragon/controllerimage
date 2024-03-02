@@ -317,12 +317,14 @@ function updateCode() {
         INPUT_ORDER.map(x => document.getElementById(x).value.replaceAll(",", "\1")).join(",").replaceAll(/,*$/g, "");
     code = [...pako.deflate(code)].map(x => String.fromCodePoint(x)).join("");
     document.getElementById("loadcode").innerText = btoa(code);
+    document.getElementById("loadlink").innerText = window.location.href.split("?")[0] + "?c=" + btoa(code).replaceAll(/=*$/g, "").replaceAll("+", "-").replaceAll("/", "_");
 }
 updateCode();
 
 document.querySelectorAll("input").forEach(x => x.addEventListener("input", updateCode));
 
 function loadFromCode(code) {
+    console.log(code);
     if (!code) return;
     let decoded;
     try {
@@ -339,6 +341,12 @@ function loadFromCode(code) {
         document.getElementById(INPUT_ORDER[i]).value = parts[i + 2].replaceAll("\1", ",");
     }
     updateCode();
+}
+
+let urlCode = new URLSearchParams(window.location.search).get("c");
+if (urlCode) {
+    let padded = urlCode + "=".repeat((4 - urlCode.length % 4) % 4);
+    loadFromCode(padded.replaceAll("-", "+").replaceAll("_", "/"));
 }
 
 function copy(text) {
