@@ -138,13 +138,15 @@ function main() {
     for (let input of document.querySelectorAll("input")) {
         inputs[input.id] = input.value;
     }
+    const leftAligned = (x, y) => canvas.width - x;
+    const rightAligned = (x, y) => x;
     if (inputs.a) {
         drawImageRelativeToController(images.A, 0.5, 0.05, 0.5);
         drawArrow([
             {x: 1, y: 0.05},
             {x: 0.6, y: 0.05}
         ]);
-        drawText(inputs.a, 1.01, 0.05, "left", (x, y) => canvas.width - x);
+        drawText(inputs.a, 1.01, 0.05, "left", leftAligned);
     }
     if (inputs.b) {
         drawImageRelativeToController(images.B, 0.635, -0.14, 0.5);
@@ -152,7 +154,7 @@ function main() {
             {x: 1, y: -0.14},
             {x: 0.75, y: -0.14}
         ]);
-        drawText(inputs.b, 1.01, -0.14, "left", (x, y) => canvas.width - x);
+        drawText(inputs.b, 1.01, -0.14, "left", leftAligned);
     }
     if (inputs.x) {
         drawImageRelativeToController(images.X, 0.37, -0.13, 0.5);
@@ -161,7 +163,7 @@ function main() {
             {x: 0.37, y: -0.5},
             {x: 0.37, y: -0.25}
         ]);
-        drawText(inputs.x, 1.01, -0.5, "left", (x, y) => canvas.width - x);
+        drawText(inputs.x, 1.01, -0.5, "left", leftAligned);
     }
     if (inputs.y) {
         drawImageRelativeToController(images.Y, 0.505, -0.32, 0.5);
@@ -169,7 +171,7 @@ function main() {
             {x: 1, y: -0.32},
             {x: 0.6, y: -0.32}
         ]);
-        drawText(inputs.y, 1.01, -0.32, "left", (x, y) => canvas.width - x);
+        drawText(inputs.y, 1.01, -0.32, "left", leftAligned);
     }
     if (inputs.dpad_up || inputs.dpad_down || inputs.dpad_left || inputs.dpad_right) {
         drawImageRelativeToController(images.Dpad, -0.24, 0.31, 1.05);
@@ -182,7 +184,7 @@ function main() {
             {x: -0.4, y: 0.15},
             {x: -0.3, y: 0.15}
         ]);
-        drawText(inputs.dpad_up, -1.01, 0.5, "right", (x, y) => x);
+        drawText(inputs.dpad_up, -1.01, 0.5, "right", rightAligned);
     }
     if (inputs.dpad_down) {
         drawDpadGradient(-0.24, 0.47, 0, 1);
@@ -191,7 +193,7 @@ function main() {
             {x: -0.24, y: 0.65},
             {x: -0.24, y: 0.55}
         ]);
-        drawText(inputs.dpad_down, -1.01, 0.65, "right", (x, y) => x);
+        drawText(inputs.dpad_down, -1.01, 0.65, "right", rightAligned);
     }
     if (inputs.dpad_left) {
         drawDpadGradient(-0.33, 0.31, -1, 0);
@@ -200,7 +202,7 @@ function main() {
             {x: -0.33, y: 0.8},
             {x: -0.33, y: 0.4}
         ]);
-        drawText(inputs.dpad_left, -1.01, 0.8, "right", (x, y) => x);
+        drawText(inputs.dpad_left, -1.01, 0.8, "right", rightAligned);
     }
     if (inputs.dpad_right) {
         drawDpadGradient(-0.15, 0.31, 1, 0);
@@ -209,7 +211,7 @@ function main() {
             {x: -0.15, y: 0.95},
             {x: -0.15, y: 0.4}
         ]);
-        drawText(inputs.dpad_right, -1.01, 0.95, "right", (x, y) => x);
+        drawText(inputs.dpad_right, -1.01, 0.95, "right", rightAligned);
     }
     if (inputs.lt) {
         drawImageRelativeToController(images.LT, -0.52, -0.88, 0.75);
@@ -217,7 +219,7 @@ function main() {
             {x: -1, y: -0.88},
             {x: -0.65, y: -0.88}
         ]);
-        drawText(inputs.lt, -1.01, -0.88, "right", (x, y) => x);
+        drawText(inputs.lt, -1.01, -0.88, "right", rightAligned);
     }
     if (inputs.rt) {
         drawImageRelativeToController(images.RT, 0.52, -0.88, 0.75);
@@ -225,7 +227,7 @@ function main() {
             {x: 1, y: -0.88},
             {x: 0.65, y: -0.88}
         ]);
-        drawText(inputs.rt, 1.01, -0.88, "left", (x, y) => canvas.width - x);
+        drawText(inputs.rt, 1.01, -0.88, "left", leftAligned);
     }
     if (inputs.lb) {
         drawImageRelativeToController(images.LB, -0.8, -0.7, 0.75);
@@ -233,7 +235,7 @@ function main() {
             {x: -1, y: -0.7},
             {x: -0.95, y: -0.7}
         ]);
-        drawText(inputs.lb, -1.01, -0.7, "right", (x, y) => x);
+        drawText(inputs.lb, -1.01, -0.7, "right", rightAligned);
     }
     if (inputs.rb) {
         drawImageRelativeToController(images.RB, 0.8, -0.7, 0.75);
@@ -241,7 +243,7 @@ function main() {
             {x: 1, y: -0.7},
             {x: 0.95, y: -0.7}
         ]);
-        drawText(inputs.rb, 1.01, -0.7, "left", (x, y) => canvas.width - x);
+        drawText(inputs.rb, 1.01, -0.7, "left", leftAligned);
     }
     if (inputs.left_stick_vertical || inputs.left_stick_horizontal) {
         drawImageRelativeToController(images.Left_Stick, -0.482, -0.11, 0.75);
@@ -252,7 +254,7 @@ function main() {
             {x: -1, y: -0.4},
             {x: -0.55, y: -0.4}
         ]);
-        drawText(inputs.left_stick_vertical, -1.01, -0.4, "right", (x, y) => x);
+        drawText(inputs.left_stick_vertical, -1.01, -0.4, "right", rightAligned);
     }
     if (inputs.left_stick_horizontal) {
         drawImageRelativeToController(images.arrows_horizontal, -0.482, -0.11, 0.75);
@@ -260,7 +262,7 @@ function main() {
             {x: -1, y: -0.11},
             {x: -0.8, y: -0.11}
         ]);
-        drawText(inputs.left_stick_horizontal, -1.01, -0.11, "right", (x, y) => x);
+        drawText(inputs.left_stick_horizontal, -1.01, -0.11, "right", rightAligned);
     }
     if (inputs.right_stick_vertical || inputs.right_stick_horizontal) {
         drawImageRelativeToController(images.Right_Stick, 0.2595, 0.31, 0.75);
@@ -271,7 +273,7 @@ function main() {
             {x: 1, y: 0.6},
             {x: 0.35, y: 0.6}
         ]);
-        drawText(inputs.right_stick_vertical, 1.01, 0.6, "left", (x, y) => canvas.width - x);
+        drawText(inputs.right_stick_vertical, 1.01, 0.6, "left", leftAligned);
     }
     if (inputs.right_stick_horizontal) {
         drawImageRelativeToController(images.arrows_horizontal, 0.2595, 0.31, 0.75);
@@ -279,7 +281,7 @@ function main() {
             {x: 1, y: 0.31},
             {x: 0.55, y: 0.31}
         ]);
-        drawText(inputs.right_stick_horizontal, 1.01, 0.31, "left", (x, y) => canvas.width - x);
+        drawText(inputs.right_stick_horizontal, 1.01, 0.31, "left", leftAligned);
     }
     if (inputs.view) {
         drawImageRelativeToController(images.View, -0.125, -0.125, 0.4);
@@ -288,7 +290,7 @@ function main() {
             {x: -0.125, y: -1},
             {x: -0.125, y: -0.25}
         ]);
-        drawText(inputs.view, -1.01, -1, "right", (x, y) => x);
+        drawText(inputs.view, -1.01, -1, "right", rightAligned);
     }
     if (inputs.menu) {
         drawImageRelativeToController(images.Menu, 0.15, -0.125, 0.4);
@@ -297,7 +299,7 @@ function main() {
             {x: 0.15, y: -1},
             {x: 0.15, y: -0.25}
         ]);
-        drawText(inputs.menu, 1.01, -1, "left", (x, y) => canvas.width - x);
+        drawText(inputs.menu, 1.01, -1, "left", leftAligned);
     }
     if (inputs.share) {
         drawImageRelativeToController(images.Share, 0.01, 0, 0.4);
@@ -306,7 +308,7 @@ function main() {
             {x: 0.01, y: -1.3},
             {x: 0.01, y: -0.1}
         ]);
-        drawText(inputs.share, 1.01, -1.3, "share", (x, y) => canvas.width - x);
+        drawText(inputs.share, 1.01, -1.3, "share", leftAligned);
     }
 }
 
